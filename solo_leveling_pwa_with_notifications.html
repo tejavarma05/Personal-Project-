@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Leveling: IRL Grind Tracker</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #6f00ff;
+        }
+        .section {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px #6f00ff33;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="checkbox"] {
+            transform: scale(1.2);
+            margin-right: 10px;
+        }
+        progress {
+            width: 100%;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Solo Leveling: IRL Grind Tracker</h1>
+
+    <div class="section">
+        <h2>Status Window</h2>
+        <p>Weight: <strong>126 kg</strong></p>
+        <p>Workout Streak: <strong>0 days</strong></p>
+        <p>XP Progress:</p>
+        <progress value="0" max="100" id="xpBar"></progress>
+    </div>
+
+    <div class="section">
+        <h2>Daily Quests</h2>
+        <label><input type="checkbox" class="xpTask"> Completed Workout</label>
+        <label><input type="checkbox" class="xpTask"> Drank 3L Water</label>
+        <label><input type="checkbox" class="xpTask"> Hit Protein Goal</label>
+        <label><input type="checkbox" class="xpTask"> No Junk Food</label>
+        <label><input type="checkbox" class="xpTask"> Mental Reset (Journal, Meditate)</label>
+        <button onclick="calculateXP()">Clear Dungeon</button>
+    </div>
+
+    <script>
+        // Function to trigger notification
+        function triggerNotification() {
+            if (Notification.permission === 'granted') {
+                new Notification('Solo Leveling Quest: Time to Clear Your Dungeon!');
+            }
+        }
+
+        // Check for notifications permission
+        if (Notification.permission !== 'granted') {
+            Notification.requestPermission();
+        }
+
+        // Function to calculate XP progress
+        function calculateXP() {
+            const tasks = document.querySelectorAll('.xpTask');
+            let xp = 0;
+            tasks.forEach(task => {
+                if (task.checked) xp += 20;
+            });
+            const xpBar = document.getElementById('xpBar');
+            xpBar.value = xp;
+            alert(`Dungeon Cleared! XP Gained: ${xp}`);
+        }
+        
+        // Automatically trigger a notification (for demo purposes)
+        setTimeout(triggerNotification, 1000);
+    </script>
+
+</body>
+</html>
